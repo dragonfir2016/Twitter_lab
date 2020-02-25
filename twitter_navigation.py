@@ -1,4 +1,6 @@
-import urllib.request, urllib.parse, urllib.error
+import urllib.request
+import urllib.parse
+import urllib.error
 import twurl
 import json
 import ssl
@@ -6,11 +8,10 @@ import ssl
 
 def get_account_api():
     TWITTER_URL = 'https://api.twitter.com/1.1/friends/list.json'
-    
     ctx = ssl.create_default_context()
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
-    
+
     print('')
     acct = input('Enter Twitter Account:')
     if (len(acct) < 1):
@@ -19,7 +20,7 @@ def get_account_api():
     url = twurl.augment(TWITTER_URL, {'screen_name': acct, 'count': '5'})
     connection = urllib.request.urlopen(url, context=ctx)
     data = connection.read().decode()
-    
+
     js = json.loads(data)
 
     return js
@@ -36,7 +37,5 @@ def show_dict_by_key(dictn):
     return dictn[user_key]
 
 
-
-
 if __name__ == "__main__":
-    print(show_dict_by_key( get_account_api()))
+    print(show_dict_by_key(get_account_api()))
